@@ -5,7 +5,8 @@ class benchParser:
         self.filepath = filepath
         self.input_list = []
         self.output_list = []
-        self.gate_list = []
+        self.gate_map = {}
+        self.fanout_map = {}
         self.read()
     def read(self):
         with open(self.filepath) as infile:
@@ -23,12 +24,28 @@ class benchParser:
     def dump(self):
         print(self.input_list)
         print(self.output_list)
-        print(self.gate_list)
+        print(self.gate_map)
     def add_input(self, name):
         self.input_list.append(int(name))
     def add_output(self, name):
         self.output_list.append(int(name))
     def add_gate(self, gate):
-        self.gate_list.append(gate)
+        self.gate_map[gate[0]] = gate
+        self.add_fanout(gate)
+    def add_fanout(self, gate):
+        for fanin in gate[2]:
+            if fanin in self.fanout_map:
+                self.fanout_map[fanin].append(gate[0])
+            else:
+                self.fanout_map[fanin] = [gate[0]]
+    def get_gate(self, idx):
+        return self.gate_map[idx]
+    def get_gates(self):
+        return self.gate_map.values()
+    def get_fanout(self, idx):
+        if idx in self.fanout_map:
+            return self.fanout_map[idx]
+        else:
+            return []
 
 
