@@ -15,6 +15,12 @@ class Data:
     def run(self):
         self.split_dataset()
         self.dump()
+    def analysis(self):
+        print('# of total data:', len(self.dataset))
+        print('# of train data:', len(self.train))
+        print('% of 1 in train:', len([x for x in self.train if x.target=='1'])/len(self.train))
+        print('# of test data:', len(self.test))
+        print('% of 1 in train:', len([x for x in self.test if x.target=='1'])/len(self.test))
     def parse(self):
         self.dataset = []
         with open(self.filepath,'r') as infile:
