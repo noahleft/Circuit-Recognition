@@ -23,4 +23,7 @@ for bench in benchlist:
         if not exists(generate_path(['testcases',dirname,idx])):
             mkdir(generate_path(['testcases',dirname,idx]))
         benchGenerator(generate_path(['bench',bench])).write(generate_path(['testcases',dirname,idx,'case.bench']))
-
+    for idx in range(10,15):
+        if not exists(generate_path(['testcases',dirname,idx])):
+            mkdir(generate_path(['testcases',dirname,idx]))
+        benchGenerator(generate_path(['bench',bench]),xor_bias = True).write(generate_path(['testcases',dirname,idx,'case.bench']))
