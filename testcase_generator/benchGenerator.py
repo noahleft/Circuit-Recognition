@@ -45,6 +45,13 @@ class benchGenerator:
     def read(self):
         with open(self.filepath) as infile:
             self.strlines = infile.readlines()
+        self.strlines = [line for line in self.strlines if line[0]!='#']
+        self.strlines = [line.replace('GND','10001') for line in self.strlines]
+        self.strlines = [line.replace('VDD','10002') for line in self.strlines]
+        self.strlines = [line.replace('CK','10003') for line in self.strlines]
+        self.strlines = [line.replace('CLK','10004') for line in self.strlines]
+        self.strlines = [line.replace('G','') for line in self.strlines]
+        self.strlines = [line.replace('II','1000') for line in self.strlines]
     def write(self, path):
         with open(path, 'w') as outfile:
             for strline in self.random_strlines:

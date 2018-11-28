@@ -15,6 +15,7 @@ category = listdir('testcases')
 
 with open('data.txt','w') as outfile:
     for footprint in [generate_path(['testcases', c]) for c in category]:
+        print(footprint)
         for caseid in listdir(footprint):
             testcase = generate_path([footprint,caseid, 'case.bench'])
             outfile.write(testcase+' ')
