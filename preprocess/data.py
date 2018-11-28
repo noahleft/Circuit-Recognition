@@ -9,8 +9,9 @@ class Row:
 from random import shuffle
 
 class Data:
-    def __init__(self, filepath):
+    def __init__(self, filepath, append_name=""):
         self.filepath = filepath
+        self.append_name = append_name
         self.parse()
     def run(self):
         self.split_dataset()
@@ -34,13 +35,13 @@ class Data:
         self.train = self.dataset[:num]
         self.test = self.dataset[num+1:]
     def dump(self):
-        with open('train.data','w') as outfile:
+        with open('train'+self.append_name+'.data','w') as outfile:
             for d in self.train:
                 outfile.write(d.data)
                 outfile.write(' ')
                 outfile.write(d.target)
                 outfile.write('\n')
-        with open('train.map','w') as outfile:
+        with open('train'+self.append_name+'.map','w') as outfile:
             for d in self.train:
                 outfile.write(d.path)
                 outfile.write(' ')
@@ -48,13 +49,13 @@ class Data:
                 outfile.write(' ')
                 outfile.write(d.target)
                 outfile.write('\n')
-        with open('test.data','w') as outfile:
+        with open('test'+self.append_name+'.data','w') as outfile:
             for d in self.test:
                 outfile.write(d.data)
                 outfile.write(' ')
                 outfile.write(d.target)
                 outfile.write('\n')
-        with open('test.map','w') as outfile:
+        with open('test'+self.append_name+'.map','w') as outfile:
             for d in self.test:
                 outfile.write(d.path)
                 outfile.write(' ')
