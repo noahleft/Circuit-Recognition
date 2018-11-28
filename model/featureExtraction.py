@@ -61,7 +61,7 @@ class circuit:
                 # print('check', gate)
                 xor_length = self.traverse_fanout(gate) + self.traverse_fanin(gate)
                 # print(xor_length)
-                if xor_length > 5:
+                if xor_length > 10:
                     # print('detect xor tree')
                     return 1
         return 0
