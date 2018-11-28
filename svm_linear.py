@@ -17,6 +17,7 @@ clf.fit(X, y)
 
 from sklearn.metrics import precision_score
 
+print('svm with linear kernel:')
 y_predict = clf.predict(X)
 precision = precision_score(y, y_predict)
 print('train data precision:',precision)
