@@ -13,12 +13,15 @@ if not exists('testcases'):
 
 category = listdir('testcases')
 
-for footprint in [generate_path(['testcases', c]) for c in category]:
-    for caseid in listdir(footprint):
-        testcase = generate_path([footprint,caseid, 'case.bench'])
-        print(testcase)
-        parser = benchParser(testcase)
-        matrix = circuit(parser).generate_existence_matrix(rows=10)
-        result = circuit(parser).generate_target()
-        print(''.join(matrix),result)
+with open('data.txt','w') as outfile:
+    for footprint in [generate_path(['testcases', c]) for c in category]:
+        for caseid in listdir(footprint):
+            testcase = generate_path([footprint,caseid, 'case.bench'])
+            outfile.write(testcase+' ')
+            parser = benchParser(testcase)
+            matrix = circuit(parser).generate_existence_matrix(rows=10)
+            result = circuit(parser).generate_target()
+            outfile.write(''.join(matrix))
+            outfile.write(' ')
+            outfile.write(str(result)+'\n')
 
