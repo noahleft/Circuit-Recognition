@@ -53,6 +53,7 @@ class circuit:
                 representative_matrix.append(empty_vector)
         return representative_matrix
     def xor_tree_detection(self):
+        self.xor_cache = {}
         for gate in self.parser.get_gates():
             if self.is_xor(gate):
                 # check fanout xors
@@ -65,16 +66,24 @@ class circuit:
                     return 1
         return 0
     def traverse_fanout(self, gate):
+        if gate[0] in self.xor_cache:
+            return self.xor_cache[gate[0]]
         result = [self.traverse_fanout(g) for g in self.fanout_xors(gate)]
         if result:
+            self.xor_cache[gate[0]] = max(result)+1
             return max(result)+1
         else:
+            self.xor_cache[gate[0]] = 0
             return 0
     def traverse_fanin(self, gate):
+        if gate[0] in self.xor_cache:
+            return self.xor_cache[gate[0]]
         result = [self.traverse_fanin(g) for g in self.fanin_xors(gate)]
         if result:
+            self.xor_cache[gate[0]] = max(result)+1
             return max(result)+1
         else:
+            self.xor_cache[gate[0]] = max(result)+1
             return 0
     def fanout_xors(self, gate):
         return [gate for gate in [self.parser.get_gate(idx) for idx in self.parser.get_fanout(gate[0])] if self.is_xor(gate)]

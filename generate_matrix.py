@@ -22,4 +22,3 @@ for footprint in [generate_path(['testcases', c]) for c in category]:
         result = circuit(parser).generate_target()
         print(''.join(matrix),result)
 
-
