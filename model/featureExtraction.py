@@ -70,8 +70,12 @@ class circuit:
             return self.xor_cache[gate[0]]
         result = [self.traverse_fanout(g) for g in self.fanout_xors(gate)]
         if result:
-            self.xor_cache[gate[0]] = max(result)+1
-            return max(result)+1
+            if self.is_xor(gate):
+                self.xor_cache[gate[0]] = max(result)+1
+                return max(result)+1
+            else:
+                self.xor_cache[gate[0]] = max(result)
+                return max(result)
         else:
             self.xor_cache[gate[0]] = 0
             return 0
@@ -86,9 +90,14 @@ class circuit:
             self.xor_cache[gate[0]] = max(result)+1
             return 0
     def fanout_xors(self, gate):
-        return [gate for gate in [self.parser.get_gate(idx) for idx in self.parser.get_fanout(gate[0])] if self.is_xor(gate)]
+        return [gate for gate in [self.parser.get_gate(idx) for idx in self.parser.get_fanout(gate[0])] if self.is_xor(gate) or self.is_buf(gate)]
     def fanin_xors(self, gate):
-        return [gate for gate in [self.parser.get_gate(idx) for idx in gate[2]] if self.is_xor(gate)]
+        return [gate for gate in [self.parser.get_gate(idx) for idx in gate[2]] if self.is_xor(gate) or self.is_buf(gate)]
+    def is_buf(self, gate):
+        if gate[1] == 'BUF' or gate[1] == 'NOT' or gate[1] == 'INV':
+            return True
+        else:
+            return False
     def is_xor(self, gate):
         if gate[1] == 'XOR' or gate[1] == 'XNOR':
            return True
