@@ -21,7 +21,7 @@ class Data:
         print('# of train data:', len(self.train))
         print('% of 1 in train:', len([x for x in self.train if x.target=='1'])/len(self.train))
         print('# of test data:', len(self.test))
-        print('% of 1 in train:', len([x for x in self.test if x.target=='1'])/len(self.test))
+        print('% of 1 in test:', len([x for x in self.test if x.target=='1'])/len(self.test))
     def parse(self):
         self.dataset = []
         with open(self.filepath,'r') as infile:
@@ -30,10 +30,10 @@ class Data:
                 d = Row(elements[0],elements[1],elements[2])
                 self.dataset.append(d)
     def split_dataset(self):
-        num = int(len(self.dataset)/5)
+        num = int(4*len(self.dataset)/5)
         shuffle(self.dataset)
         self.train = self.dataset[:num]
-        self.test = self.dataset[num+1:]
+        self.test = self.dataset[num:]
     def dump(self):
         with open('train'+self.append_name+'.data','w') as outfile:
             for d in self.train:
