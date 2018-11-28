@@ -84,8 +84,12 @@ class circuit:
             return self.xor_cache[gate[0]]
         result = [self.traverse_fanin(g) for g in self.fanin_xors(gate)]
         if result:
-            self.xor_cache[gate[0]] = max(result)+1
-            return max(result)+1
+            if self.is_xor(gate):
+                self.xor_cache[gate[0]] = max(result)+1
+                return max(result)+1
+            else:
+                self.xor_cache[gate[0]] = max(result)
+                return max(result)
         else:
             self.xor_cache[gate[0]] = max(result)+1
             return 0
