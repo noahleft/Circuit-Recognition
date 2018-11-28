@@ -17,7 +17,7 @@ def gen(strline, threshold_l = 0.8, threshold_s = 0.8):
                 strline = strline.replace(base, choice(single))
     return strline
 
-def gen_xor(strline, threshold_l = 0.9, threshold_s = 0.8):
+def gen_xor(strline, threshold_l = 0.8, threshold_s = 0.8):
     if '=' in strline:
         if ',' in strline: # at least two input
             if random() > threshold_l:
