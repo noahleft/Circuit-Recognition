@@ -3,3 +3,4 @@
 from preprocess.data import Data
 
 d = Data('data.txt')
+d.run()

@@ -12,6 +12,7 @@ class Data:
     def __init__(self, filepath):
         self.filepath = filepath
         self.parse()
+    def run(self):
         self.split_dataset()
         self.dump()
     def parse(self):
