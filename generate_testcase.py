@@ -19,11 +19,11 @@ for bench in benchlist:
     dirname = bench[:bench.index('.')]
     if not exists(generate_path(['testcases',dirname])):
         mkdir(generate_path(['testcases',dirname]))
-    for idx in range(10):
+    for idx in range(7500):
         if not exists(generate_path(['testcases',dirname,idx])):
             mkdir(generate_path(['testcases',dirname,idx]))
         benchGenerator(generate_path(['bench',bench])).write(generate_path(['testcases',dirname,idx,'case.bench']))
-    for idx in range(10,15):
+    for idx in range(7500,10000):
         if not exists(generate_path(['testcases',dirname,idx])):
             mkdir(generate_path(['testcases',dirname,idx]))
         benchGenerator(generate_path(['bench',bench]),xor_bias = True).write(generate_path(['testcases',dirname,idx,'case.bench']))

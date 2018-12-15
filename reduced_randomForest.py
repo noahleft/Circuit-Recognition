@@ -11,10 +11,10 @@ with open('train_converted.data') as infile:
 with open('test_converted.data') as infile:
     test_conv = [line.rstrip().split(' ') for line in infile.readlines()]
 
-X = [[int(c) for c in d[0]] for d in train]
-X_test = [[int(c) for c in d[0]] for d in test]
-X_conv = [[int(c) for c in d[0]] for d in train_conv]
-X_conv_test = [[int(c) for c in d[0]] for d in test_conv]
+X = [[int(c) for c in d[0][:40]] for d in train]
+X_test = [[int(c) for c in d[0][:40]] for d in test]
+X_conv = [[int(c) for c in d[0][:40]] for d in train_conv]
+X_conv_test = [[int(c) for c in d[0][:40]] for d in test_conv]
 y = [int(d[1]) for d in train]
 y_test = [int(d[1]) for d in test]
 y_conv = [int(d[1]) for d in train_conv]

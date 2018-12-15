@@ -13,7 +13,25 @@ if not exists('testcases'):
 
 category = listdir('testcases')
 
-with open('data_converted.txt','w') as outfile:
+from sys import argv
+category = [ 'c1196' , 'c1238' , 'c7552' , 
+             'c1908' , 'c2670' , 'c3540' , 
+             'c432' , 'c499' , 'c5315' , 
+             'c6288' , 'c1355' ,'c880' ]
+if argv[1] == '0':
+  category = category[:3]
+  filename = 'data_converted0.txt'
+elif argv[1] == '1':
+  category = category[3:6]
+  filename = 'data_converted1.txt'
+elif argv[1] == '2':
+  category = category[6:9]
+  filename = 'data_converted2.txt'
+else:
+  category = category[9:]
+  filename = 'data_converted3.txt'
+
+with open(filename,'w') as outfile:
     for footprint in [generate_path(['testcases', c]) for c in category]:
         print(footprint)
         for caseid in listdir(footprint):
